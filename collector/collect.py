@@ -430,6 +430,11 @@ def finalize(topic: dict, rank: int) -> dict:
 
 def build_day(date: str) -> None:
     items = load_json(RAW / f"{date}.json", [])
+    existing = load_json(DAILY / f"{date}.json", {})
+    if existing.get("articleTotal", 0) > len(items):
+        # 원본 캐시가 사라졌을 때, 더 많은 기사로 만든 기존 순위를 덮어쓰지 않습니다.
+        print(f"[2] {date} 건너뜀 (기존 {existing['articleTotal']}건 > 현재 {len(items)}건)")
+        return
     print(f"[2] {date} 순위 계산 ({len(items)}건)")
     domestic, international = rank_topics(items)
     for region, lst in (("국내", domestic), ("해외", international)):
