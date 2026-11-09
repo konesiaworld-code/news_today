@@ -1,0 +1,26 @@
+# 수집 원본은 Actions 캐시에만 둡니다
+data/raw/
+
+# 개인 사진으로 만든 아이콘은 공개 저장소에 올리지 않습니다 (이 PC에서만 빌드)
+assets/icon/
+android/app/src/main/res/mipmap-*/ic_launcher*.png
+
+# Python
+__pycache__/
+.venv/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+.idea/
+.vscode/
+android/.gradle/
+android/local.properties
+android/key.properties
+*.jks
