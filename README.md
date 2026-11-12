@@ -15,13 +15,15 @@
 [GitHub Actions, 매시간]                     [앱]
 collector/collect.py                        lib/
  ├ 언론사 RSS 28개 수집 (collector/feeds.py)    └ data/index.json, data/daily/날짜.json 을
+ ├ 국내 피드의 다른 나라 소식은 해외뉴스로 분류 (collector/region.py)
  ├ 같은 사건끼리 묶기 → 보도 언론사 수로 순위       GitHub에서 읽어와 화면에 표시
  ├ 기사 본문 읽어 핵심 문장 요약 (robots.txt 준수)
  └ data/ 에 JSON 저장 후 커밋
 ```
 
 - 순위는 실제 클릭 수가 아니라 **보도한 언론사 수 → 기사 수** 기준입니다.
-- 국내뉴스: 연합뉴스 · JTBC · SBS 의 국내 기사
+- 국내뉴스: 연합뉴스 · JTBC · SBS 의 국내 기사 중 **한국 관련 기사만**
+  (국내 피드에 섞여 온 다른 나라 소식은 해외뉴스로 보냅니다. 판단 기준은 `collector/region.py`)
   (MBC는 기사 단위 RSS가 없고 robots.txt가 자동 접근을 막아 제외)
 - 해외뉴스: 국내 언론사 14곳의 국제면 기사 (한국어라 번역 불필요)
   (로이터는 자동 수집 금지, BBC는 요약 제작 금지라 사용하지 않음)
