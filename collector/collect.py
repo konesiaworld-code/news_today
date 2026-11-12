@@ -29,6 +29,7 @@ import trafilatura
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from feeds import DOMESTIC_SOURCES, FEEDS  # noqa: E402
+from region import is_korea_related  # noqa: E402
 
 KST = timezone(timedelta(hours=9))
 ROOT = Path(__file__).resolve().parent.parent
@@ -244,8 +245,16 @@ def cluster(items: list[dict]) -> list[list[int]]:
 
 def rank_topics(items: list[dict]):
     items = [it for it in items if not SKIP_TITLE.search(it["title"])]
-    domestic = [it for it in items if not it["intl"] and it["source"] in DOMESTIC_SOURCES]
-    international = [it for it in items if it["intl"]]
+    domestic, international = [], []
+    for it in items:
+        if it["intl"]:
+            international.append(it)
+        elif it["source"] in DOMESTIC_SOURCES:
+            # 국내 피드에 섞여 온 다른 나라 소식은 해외뉴스로 보냅니다.
+            if is_korea_related(it["title"], it["desc"]):
+                domestic.append(it)
+            else:
+                international.append(it)
     return rank_region(domestic), rank_region(international)
 
 
