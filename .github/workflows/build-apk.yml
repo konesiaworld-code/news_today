@@ -30,7 +30,7 @@ jobs:
         run: |
           if ! ls android/app/src/main/res/mipmap-*/ic_launcher_foreground.png >/dev/null 2>&1; then
             rm -rf android/app/src/main/res/mipmap-anydpi-v26
-            sed -i '/android:roundIcon=/d' android/app/src/main/AndroidManifest.xml
+            sed -i 's/ *android:roundIcon="[^"]*"//' android/app/src/main/AndroidManifest.xml
             echo "기본 아이콘으로 빌드합니다"
           fi
 
