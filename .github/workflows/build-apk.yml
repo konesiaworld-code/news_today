@@ -22,6 +22,9 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
+          # 이 프로젝트를 만든 버전(.metadata 의 revision c197ca5)에 맞춥니다.
+          # 더 새 버전은 android/settings.gradle.kts 의 Android Gradle Plugin 버전을 올려야 합니다.
+          flutter-version: '3.47.9'
           channel: stable
           cache: true
 
