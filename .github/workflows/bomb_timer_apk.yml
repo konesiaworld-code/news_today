@@ -38,11 +38,11 @@ jobs:
       - name: 카톡 전송용 zip 만들기
         run: |
           mkdir -p ../dist
-          cp build/app/outputs/flutter-apk/app-release.apk "../dist/때지의 스탑워치.apk"
-          cd ../dist
-          rm -f "때지의 스탑워치.zip"
-          zip "때지의 스탑워치.zip" "때지의 스탑워치.apk"
-          rm "때지의 스탑워치.apk"
+          python3 - <<'PY'
+          import zipfile
+          with zipfile.ZipFile('../dist/때지의 스탑워치.zip', 'w', zipfile.ZIP_DEFLATED) as z:
+              z.write('build/app/outputs/flutter-apk/app-release.apk', '때지의 스탑워치.apk')
+          PY
 
       - name: APK 올리기
         uses: actions/upload-artifact@v4
