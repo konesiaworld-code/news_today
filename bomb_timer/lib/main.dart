@@ -28,7 +28,7 @@ class BombTimerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '폭탄 타이머',
+      title: '때지의 스탑워치',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -252,7 +252,7 @@ class _BombTimerPageState extends State<BombTimerPage> with TickerProviderStateM
                   child: Column(
                     children: [
                       const SizedBox(height: 24),
-                      Text('폭탄 타이머',
+                      Text('때지의 스탑워치',
                           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 2,

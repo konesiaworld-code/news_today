@@ -7,7 +7,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const BombTimerApp());
     await tester.pump();
-    expect(find.text('폭탄 타이머'), findsWidgets);
+    expect(find.text('때지의 스탑워치'), findsWidgets);
     expect(find.text('점화'), findsOneWidget);
     expect(find.text('리셋'), findsOneWidget);
   });
