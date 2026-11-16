@@ -7,6 +7,9 @@ on:
       - '.github/workflows/bomb_timer_apk.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,8 +35,31 @@ jobs:
       - run: flutter test
       - run: flutter build apk --release
 
+      - name: 카톡 전송용 zip 만들기
+        run: |
+          mkdir -p ../dist
+          cp build/app/outputs/flutter-apk/app-release.apk "../dist/때지의 스탑워치.apk"
+          cd ../dist
+          rm -f "때지의 스탑워치.zip"
+          zip "때지의 스탑워치.zip" "때지의 스탑워치.apk"
+          rm "때지의 스탑워치.apk"
+
       - name: APK 올리기
         uses: actions/upload-artifact@v4
         with:
-          name: bomb-timer-apk
+          name: 때지의 스탑워치
           path: bomb_timer/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: zip 저장소에 저장
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "dist/때지의 스탑워치.zip"
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "dist: 때지의 스탑워치.zip 빌드"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
